@@ -7,22 +7,23 @@ class MasterMind:
     #The constructor of the class, is called when u instantiate an object of the class. See line: 79
     #And is used to initialize the vars of the class
     def __init__(self):
-        self.size = 4
+        self.size = 6
         self.goal = self.initGoal()
+        self.nb_turn = 10
         print(self.goal)
 
     #Create a random goal to reach
     def initGoal(self):
-        goal = [0, 0, 0, 0]
+        goal = []
         for i in range(self.size):
             #Fill your goal at place i with a random number between 1 and 6 included, rise up the second number to make the game more complicated
-            goal[i] = random.randint(1, 6)
+            goal.append(random.randint(1, 6))
         return goal
     
     #This function contains the whole game
     def play(self):
         #Each turn during 10 turns
-        for i in range(10):
+        for i in range(self.nb_turn):
             #Enter your input with space between numbers
             guess = [ int(x) for x in input().split()]
             #If everything is correct
@@ -32,7 +33,7 @@ class MasterMind:
             #Else 
             else:
                 #if it is the last turn, u lose
-                if i == 9:
+                if i == self.nb_turn - 1:
                     print("U lost, u are a f**king loser BOUUUUUUUUU")
                 #Else you continue
                 else:
@@ -69,7 +70,9 @@ class MasterMind:
 
     #Used in "isSemiCorrect"
     def initTrueTab(self, guess):
-        trueTab = [False, False, False, False]
+        trueTab = []
+        for i in range(self.size):
+            trueTab.append(False)
         for i in range(self.size):
             if (guess[i] == self.goal[i]):
                 trueTab[i] = True
